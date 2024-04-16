@@ -69,7 +69,7 @@ def lp_handle_event(evt,mtx,config,players):
                     if extension.upper()=="WAV":
                         sound = AudioSegment.from_wav(songfile) #, format="mp3")
 
-                    else if extension.upper()=="MP3":
+                    elif extension.upper()=="MP3":
                         sound = AudioSegment.from_mp3(songfile)
 
                     else:
@@ -77,7 +77,7 @@ def lp_handle_event(evt,mtx,config,players):
                         sound=None
 
                     if fc['duration']>0: 
-                        splice = sound[start_ms:end_ms]
+                        splice = sound[start_ms:end_ms].fade_in(50)
                     else:
                         splice = sound[start_ms:].fade_in(50)
 
