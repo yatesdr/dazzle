@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from pydub.playback import _play_with_simpleaudio as play
-import time, os
+import time, os, json
 import lpmini_toolkit as lptk
 import threading
 
@@ -24,14 +24,19 @@ def unmute():
 
 # Configuration for the application
 def load_config():
+
+    file = "/app/dazzle_config.json"
+
+    with open(file,'r') as f_in:
+        config = json.load(f_in)
     
-    config = [
-            {"row": 8, "col": 8, "action": "stop"},
-            {"row": 1, "col": 0, "action": "play", "file": "Eminem - My Name Is.wav", "start": 0.0, "duration": 0},
-            {"row": 1, "col": 1, "action": "play", "file": "ACDC - Thunderstruck.wav", "start": 5.0, "duration": 0},
-            {"row": 1, "col": 2, "action": "play", "file": "David Guetta - Titanium.wav", "start": 43.0, "duration": 0},
-    ]
-    return config 
+    #config = [
+    #        {"row": 8, "col": 8, "action": "stop"},
+    #        {"row": 1, "col": 0, "action": "play", "file": "Eminem - My Name Is.wav", "start": 0.0, "duration": 0},
+    #        {"row": 1, "col": 1, "action": "play", "file": "ACDC - Thunderstruck.wav", "start": 5.0, "duration": 0},
+    #        {"row": 1, "col": 2, "action": "play", "file": "David Guetta - Titanium.wav", "start": 43.0, "duration": 0},
+    #]
+    #return config 
             
 
 def lp_handle_event(evt,mtx,config,players):
