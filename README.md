@@ -1,10 +1,12 @@
 # Dazzle Player
-A simple, self-contained audio sample player consisting of a LaunchPad Mini, a Raspberry Pi 4.
+A simple, self-contained audio sample player consisting of a LaunchPad Mini and a Raspberry Pi 4b.
 
 ## About
-This project was originally designed for playing "walk-on" music for Softball games.   The idea is each player gets a button, and when they're going up to bat it's easy to start and stop their song.
+There are lots of great utilities to play samples and triggers from a laptop or PC using MIDI triggers or a Streamdeck - Ableton, reaper, or other DAWs can easily do this.   Even a VLC playlist.   But I wasn't able to find something that met my needs for a durable, self-contained, configurable and self-contained portable music player which requires no screen and let the kids easily run their sound from a dugout or other location.
 
-Dazzle is designed to directly drive a single powered PA speaker, but could be patched into a local sound board just as easily.
+This project was created for that purpose - to allow for self-service playing of "walk-on" music for Softball games from the dugout.   The basic idea is that each player gets a button, and when they're going up to bat it's easy to start and stop their song with minimal distraction from the game or having to mess with phones and playlists and bluetooth connections.  
+
+Dazzle is designed to directly drive a single powered PA speaker with a mono mix, but could be patched into a local stadium sound board just as easily.
 
 ## BOM
 You need the following:
@@ -33,7 +35,7 @@ You need the following:
 5.  Edit app.py and modify the config area to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds, or it will play until stopped or the song ends if you leave it at 0.
 6.  Run the docker file at boot using restart=always.  You will need to pass in --device=/dev/snd and --mount flags to get your media directory set up (see shell scripts for details).
 ```
-sudo docker container create --device=/dev/snd --mount type=bind,src=/home/<user>/dazzle/media,target=/media --restart always --name dazzler dazzle
+sudo docker container create --device=/dev/snd --mount type=bind,src=/home/<user>/dazzle/media,target=/<your_media_folder_on_pi4> --restart always --name dazzler dazzle
 sudo docker run dazzler --restart always 
 ```
 
