@@ -29,7 +29,7 @@ You need the following:
 1.  Print the STL's, wire up your system, and install Raspbian x64 server
 2.  Install Docker (sudo apt install docker.io)
 3.  Build the docker image, or use the public one (cd dazzle && docker build .) - This may take a while.
-4.  Download your Media.   WAV files work the best.  MP3's are a bit slow to load on a Pi4, but work fine on laptops and such. 
+4.  Download your Media.   WAV files work the best.  MP3's are a bit slow to load on a Pi4, but work fine on laptops and such.  For testing with media you already own, some utilities are provided to pull in WAV's, but if you're using this in public you should of course contact the license holders and do this officially and legally.
 5.  Edit app.py and modify the config area to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds.
 6.  Run the docker file at boot using restart=always.  You will need to pass in --device=/dev/snd and --mount flags to get your media directory set up (see shell scripts for details).
 7. After re-booting, you'll see the board start working and should be able to play your samples.
@@ -41,4 +41,10 @@ You need the following:
 4. Push any other white button to change songs.
 
 
+## Road-Map & Future improvements
+These are the things I want to work on when I have time, but may never get to.   
+1.  Move configuration to a separate file.
+2.  Use the Wifi chip to create a local network, with web application to modify the board config.
+3.  A small pop can sometimes be heard when stopping media, I'd like to fix this.
+4.  Improve latency between press and play for MP3's.   This probably requires using something other than pydub, but it's unclear why mp3's lag so much (5-6 seconds).   For now, just use WAV's and the latency is acceptable at about 0.5 seconds for a Pi4.
 
