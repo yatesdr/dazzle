@@ -1,8 +1,8 @@
 # Media folder - best to use WAV's
-MEDIA_DIR=~/dazzle/dazzle/media
+MEDIA_DIR=~/dazzle/media/wav
 
 # Board config file - maps songs to buttons.
-CONFIG_DIR=~/dazzle/dazzle/config
+CONFIG_DIR=~/dazzle/config
 
 # Do the install, start the container, and always restart it.
 sudo docker build . -t dazzle

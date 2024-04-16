@@ -12,7 +12,7 @@ X=0; W=1; R=5; B=51; G=25
 os.system("amixer -- sset PCM -12dB mute")
 
 # Media directory - This is usually a bind mount on the system.  Absolute path.
-mdir = "/media/wav"
+mdir = "/media"
 
 
 def mute():
@@ -28,12 +28,6 @@ def load_config():
     with open(file,'r') as f_in:
         config = json.load(f_in)
     
-    #config = [
-    #        {"row": 8, "col": 8, "action": "stop"},
-    #        {"row": 1, "col": 0, "action": "play", "file": "Eminem - My Name Is.wav", "start": 0.0, "duration": 0},
-    #        {"row": 1, "col": 1, "action": "play", "file": "ACDC - Thunderstruck.wav", "start": 5.0, "duration": 0},
-    #        {"row": 1, "col": 2, "action": "play", "file": "David Guetta - Titanium.wav", "start": 43.0, "duration": 0},
-    #]
     return config 
             
 
@@ -48,15 +42,14 @@ def lp_handle_event(evt,mtx,config,players):
             fc = command[0]
             print("Release command: ", fc)
             t = time.time()
-            print("[A]: ",time.time()-t)
 
             # Handle play commands.
             if fc['action']=="play":
                 songfile = f"{mdir}/{fc['file']}"
+                extension = songfile.split["."][-1]
+
                 start_ms = fc['start']*1000
                 end_ms = 1000*(fc['duration']+fc['start'])
-                print(songfile, start_ms, end_ms)
-                print("[B]: ", time.time()-t)
 
                 # See if this song was playing (to stop only, skips starting)
                 is_playing = (mtx[fc['row']][fc['col']]==G)
@@ -70,20 +63,23 @@ def lp_handle_event(evt,mtx,config,players):
                 # Reset the matrix display to base config with nothign playing.
                 mtx = lptk.init_matrix(config)
 
-                print("[C]: ", time.time()-t)
-
                 # If nothing was playing, start this song.
                 if not is_playing:
                     # Start this song and place the player stream in config.
-                    print("[D]: ", time.time()-t)
-                    sound = AudioSegment.from_wav(songfile) #, format="mp3")
-                    print("[E]: ", time.time()-t)
+                    if extension.upper()=="WAV":
+                        sound = AudioSegment.from_wav(songfile) #, format="mp3")
+
+                    else if extension.upper()=="MP3":
+                        sound = AudioSegment.from_mp3(songfile)
+
+                    else:
+                        print("Error - songfile extension not recognized or supported: ",extension)
+                        sound=None
 
                     if fc['duration']>0: 
                         splice = sound[start_ms:end_ms]
                     else:
                         splice = sound[start_ms:].fade_in(50)
-                    print("[F]: ", time.time()-t)
 
                     unmute()
 
@@ -119,14 +115,9 @@ def lp_handler():
     lptk.write_colors(lp,mtx)
 
     while True:
-
-        #try:
             mtx = lp_handle_event(lp.panel.buttons().poll_for_event(),mtx,config,players)  # Wait for a button press/release  # noqa
             lptk.write_colors(lp,mtx)    
             config = load_config()
-        #except Exception:
-        #    print("Program crash")
-
 
 lp_handler()
 
