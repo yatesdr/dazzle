@@ -1,5 +1,5 @@
 # Media folder - best to use WAV's
-MEDIA_DIR=~/dazzle/media/wav
+MEDIA_DIR=~/dazzle/media
 
 # Board config file - maps songs to buttons.
 CONFIG_DIR=~/dazzle/config
