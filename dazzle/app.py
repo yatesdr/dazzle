@@ -24,9 +24,7 @@ def unmute():
 
 # Configuration for the application
 def load_config():
-
-    file = "/app/dazzle_config.json"
-
+    file = "/config/config.json"
     with open(file,'r') as f_in:
         config = json.load(f_in)
     
@@ -36,7 +34,7 @@ def load_config():
     #        {"row": 1, "col": 1, "action": "play", "file": "ACDC - Thunderstruck.wav", "start": 5.0, "duration": 0},
     #        {"row": 1, "col": 2, "action": "play", "file": "David Guetta - Titanium.wav", "start": 43.0, "duration": 0},
     #]
-    #return config 
+    return config 
             
 
 def lp_handle_event(evt,mtx,config,players):
@@ -88,6 +86,11 @@ def lp_handle_event(evt,mtx,config,players):
                     print("[F]: ", time.time()-t)
 
                     unmute()
+
+                    # Custom volume is specified, apply it.
+                    if fc.get("vol"):
+                        os.system(f"amixer -- sset PCM {fc.get('vol')}")
+
                     playback = play(splice)
                     players.append(playback)
                
@@ -103,7 +106,8 @@ def lp_handle_event(evt,mtx,config,players):
     return mtx
 
 
-def lp_handler(config):
+def lp_handler():
+    config=load_config()
     lp = lptk.init_launchpad()
     if (not lp):
         print("Launchpad not detected, exiting.")
@@ -119,11 +123,11 @@ def lp_handler(config):
         #try:
             mtx = lp_handle_event(lp.panel.buttons().poll_for_event(),mtx,config,players)  # Wait for a button press/release  # noqa
             lptk.write_colors(lp,mtx)    
+            config = load_config()
         #except Exception:
         #    print("Program crash")
 
 
-config = load_config()
-lp_handler(config)
+lp_handler()
 
 
