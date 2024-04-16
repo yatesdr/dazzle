@@ -46,7 +46,7 @@ def lp_handle_event(evt,mtx,config,players):
             # Handle play commands.
             if fc['action']=="play":
                 songfile = f"{mdir}/{fc['file']}"
-                extension = songfile.split["."][-1]
+                extension = songfile.split(".")[-1]
 
                 start_ms = fc['start']*1000
                 end_ms = 1000*(fc['duration']+fc['start'])
