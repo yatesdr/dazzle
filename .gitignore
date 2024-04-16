@@ -3,3 +3,4 @@ old/
 *.wav
 *.MP3
 *.WAV
+.DS_Store
