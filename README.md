@@ -2,7 +2,7 @@
 A simple, self-contained audio sample player consisting of a LaunchPad Mini and a Raspberry Pi 4b.
 
 ## About
-There are lots of great utilities to play samples and triggers from a laptop or PC using MIDI triggers or a Streamdeck - Ableton, reaper, or other DAWs can easily do this.   Even a VLC playlist.   But I wasn't able to find something that met my needs for a durable, self-contained, configurable and self-contained portable music player which requires no screen and let the kids easily run their sound from a dugout or other location.
+There are lots of great utilities to play samples and triggers from a laptop or PC using MIDI triggers or a Streamdeck - Ableton, reaper, or other DAWs can easily do this.   Even a VLC playlist.   But I wasn't able to find something that met my needs for a durable, self-contained, configurable and portable music player which requires no screen and let the kids easily run their sound from a dugout or other location.
 
 This project was created for that purpose - to allow for self-service playing of "walk-on" music for Softball games from the dugout.   The basic idea is that each player gets a button, and when they're going up to bat it's easy to start and stop their song with minimal distraction from the game or having to mess with phones and playlists and bluetooth connections.  
 
