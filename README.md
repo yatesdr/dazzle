@@ -30,7 +30,7 @@ You need the following:
 5.  Power it up - It's designed to be powered over usb-c, so you can use a power bank or just plug it into 120v power using a Pi4 power addapter and the passthrough. 
 
 ## Install Dazzle
-Dazzle is intended to be used with a vanilla raspberry pi 4b / 4GB, but may work on other systems also if you're adventurous.  It should also run on a 2GB Pi-4B but is untested.
+Dazzle is intended to be used with a vanilla raspberry pi 4b / 4GB, but may work on other systems also if you're adventurous.  It should also run on a 2GB Pi-4B but is untested.   You do need your Pi connected to the internet to do the installation, as it needs many docker and python bits to work that are not packaged here to complete the build.
 
 1.  Use Raspberry Pi Imager to burn a basic installation of Raspbian 64-bit server.   Set up your credentials and SSH access here so you don't need to mess with a monitor.
 2.  Boot and login to the pi via ssh.
@@ -47,10 +47,11 @@ cd ~/dazzle/dazzle
 ```
 
 Install will build the local docker image, map the drive and config, and then start it with a restart policy of always.  By default, the media directory is set to ~/dazzle/dazzle/media/wav, and the config file is ~/dazzle/dazzle/config/config.json.
+The build will take a while.  Once it's stable and all the bugs are out I'll release or pre-package the docker image here to avoid the build process on standard hardware.
 
 If you want to see the running container, try  ```sudo docker ps```
 
-If you need to change things, a cleaning script is provided:  ```./clean.sh```
+If you need to change things, a cleaning script is provided:  ```./clean.sh```.   This removes the containers but not the images, so if you want to remove those do it manually.
 
 ## How to use
 1.  Upload your Media to the Pi's media folder using scp, rsync, or some other method.  By default install this folder is in ```~/dazzle/dazzle/media/wav/``` but you can move it before running install.sh if you prefer.  
