@@ -1,4 +1,4 @@
-#Dazzle Player
+# Dazzle Player
 A simple, self-contained audio sample player consisting of a LaunchPad Mini and a Raspberry Pi 4b.
 
 ## About
