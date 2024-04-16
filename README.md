@@ -6,7 +6,7 @@ There are lots of great utilities to play samples and triggers from a laptop or 
 
 This project was created for that purpose - to allow for self-service playing of "walk-on" music for Softball games from the dugout.   The basic idea is that each player gets a button, and when they're going up to bat it's easy to start and stop their song with minimal distraction from the game or having to mess with phones and playlists and bluetooth connections.  
 
-Dazzle is designed to directly drive a single powered PA speaker with a mono mix, but could be patched into a local stadium sound board just as easily.
+Dazzle is designed to directly drive a single powered PA speaker with a mono mix, but could also be patched into a local stadium sound board or other sound system for sound effects and sample playback.
 
 ## BOM
 You need the following:
@@ -17,14 +17,16 @@ You need the following:
 5.  Two 470 ohm resistors
 6.  One 22k ohm resistor
 7.  One TRS 1/8 audio plug
-8.  Various wire, heat-shrink, solder, and hot glue.
-9.  Cables to connect everything
+8.  m3 and m4 socket head screws for assembling the case.
+9.  Various wire, heat-shrink, solder, and hot glue.
+10.  Cables to connect everything - in particular a right-angle USB-c to USB-a cable for the Launchpad Mini MK3.
 
 ## Building it
-1.  Print the files from STL's - modify if desired.
+1.  Print the files from STL's - modify if desired in the Fusion 360 files provided.  Install the Pi4.
 2.  Install the panel mounts in the print for XLR, USB-C, and RJ-45 jacks. Wire them into the Pi4 as appropriate.   The USB-C passthrough is intended for powering the Pi. 
-3.  Build the output circuit.   The Pi4 has a TRRS output built in, and we want to sum that to mono at the XLR output.   I used a headphone jack cable to plug into the Pi4 (TRS 1/8) together with two 470 ohm resistors to sum L/R, and a 22k ground impedance resistor, all installed right at the XLR patch point.   If you skip this step and try to wire it directly you'll probably get hum and a poor audio output.
-4.  Power the board - Its' meant to be powered over usb-c, so you can use a power bank or just plug it in like normal using the passthrough. 
+3.  Build the audio output mono mix circuit.   The Pi4 has a TRRS output built in, and we want to sum that to mono at the XLR output so we can use normal WAV files in stereo or mono.   I used an inexpensive headphone cable to plug into the Pi4 (TRS 1/8) together with two 470 ohm resistors to sum L/R, and a 22k ground impedance resistor, all installed right at the XLR patch point.   If you skip this step and try to wire it directly you'll probably get hum and a poor audio output, but you can experiment with other output strategies if you want.
+4.  Install the LaunchPad Mini and clamp it down - There are two 4mm bolts to hold the launchpad in the case.
+5.  Power it up - It's designed to be powered over usb-c, so you can use a power bank or just plug it into 120v power using a Pi4 power addapter and the passthrough. 
 
 
 ## How to use
