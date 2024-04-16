@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from pydub.playback import _play_with_simpleaudio as play
-import time
+import time, os
 import lpmini_toolkit as lptk
 import threading
 
@@ -8,8 +8,19 @@ import threading
 X=0; W=1; R=5; B=51; G=25
 
 
+# Set the volume to -12dB reference and mute it
+os.system("amixer -- sset PCM -12dB mute")
+
 # Media directory - This is usually a bind mount on the system.  Absolute path.
-mdir = "/home/derek/dazzle/media/wav"
+mdir = "/media/wav"
+
+
+def mute():
+    os.system("amixer sset PCM mute")
+
+def unmute():
+    os.system("amixer -- sset PCM -12dB unmute")
+
 
 # Configuration for the application
 def load_config():
@@ -47,6 +58,8 @@ def lp_handle_event(evt,mtx,config,players):
                 # See if this song was playing (to stop only, skips starting)
                 is_playing = (mtx[fc['row']][fc['col']]==G)
 
+                mute()
+
                 # Stop all players
                 for p in players:
                     p.stop()
@@ -69,6 +82,7 @@ def lp_handle_event(evt,mtx,config,players):
                         splice = sound[start_ms:].fade_in(50)
                     print("[F]: ", time.time()-t)
 
+                    unmute()
                     playback = play(splice)
                     players.append(playback)
                
@@ -76,6 +90,7 @@ def lp_handle_event(evt,mtx,config,players):
                     mtx[fc['row']][fc['col']]=G
 
             if fc['action']=="stop":
+                mute()
                 for p in players:
                     p.stop()
                 mtx = lptk.init_matrix(config)

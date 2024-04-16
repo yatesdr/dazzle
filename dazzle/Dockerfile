@@ -13,5 +13,6 @@ RUN apk add alsa-utils ffmpeg py3-simpleaudio
 COPY --from=compile-image /opt/venv /opt/venv
 COPY . /app/
 ENV PATH="/opt/venv/bin:$PATH"
-#WORKDIR /app
-#ENTRYPOINT ["python3","app.py"]
+
+WORKDIR /app
+ENTRYPOINT ["python3","app.py"]
