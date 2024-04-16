@@ -26,12 +26,17 @@ You need the following:
 
 
 ## How to use
-1.  Print the STL's, wire up your system, and install Raspbian x64 server
+1.  Once the physical build is complete, flash Raspbian 64-bit server and boot the pi.  Set up credentials and ssh, no monitor is needed.
 2.  Install Docker (sudo apt install docker.io)
-3.  Build the docker image, or use the public one (cd dazzle && docker build .) - This may take a while.
-4.  Download your Media.   WAV files work the best.  MP3's are a bit slow to load on a Pi4, but work fine on laptops and such.  For testing with media you already own, some utilities are provided to pull in WAV's, but if you're using this in public you should of course contact the license holders and do this officially and legally.
-5.  Edit app.py and modify the config area to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds.
+3.  Build the docker image (cd dazzle && docker build .) - This may take a while.  Soon I'll push a pre-built image to dockerhub for the Pi4, but for now you have to build it on the Pi.
+4.  Download your Media to the Pi using scp or rsync.   WAV files work the best and are what you should use.   If you have MP3's there is a utility provided to convert them to WAV.  MP3's can also work, but are a bit slow to load on a Pi4, so only use them if you're using this on a laptop or n100 type machine.  For testing with media you already own, some utilities are provided to pull in WAV's from Youtube, but if you're using this in public you should of course contact the license holders and do this officially and legally.
+5.  Edit app.py and modify the config area to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds, or it will play until stopped or the song ends if you leave it at 0.
 6.  Run the docker file at boot using restart=always.  You will need to pass in --device=/dev/snd and --mount flags to get your media directory set up (see shell scripts for details).
+```
+sudo docker container create --device=/dev/snd --mount type=bind,src=/home/<user>/dazzle/media,target=/media --restart always --name dazzler dazzle
+sudo docker run dazzler --restart always 
+```
+
 7. After re-booting, you'll see the board start working and should be able to play your samples.
 
 ## Basic Actions:
