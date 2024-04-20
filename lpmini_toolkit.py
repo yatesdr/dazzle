@@ -33,7 +33,10 @@ def init_matrix(config):
 
         if item['action']=="play":
             matrix[item['row']][item['col']]=W
-        
+
+        if item['action']=="playlist":
+            matrix[item['row']][item['col']]=W
+
         if item['action']=="stop":
             matrix[item['row']][item['col']]=R
 

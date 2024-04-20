@@ -15,4 +15,4 @@ COPY . /app/
 ENV PATH="/opt/venv/bin:$PATH"
 
 WORKDIR /app
-ENTRYPOINT ["python3","app.py"]
+ENTRYPOINT ["python3","-u", "app.py"]

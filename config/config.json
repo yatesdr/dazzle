@@ -1,7 +1,30 @@
 [
 {"row": 8, "col": 8, "action": "stop"},
-{"row": 1, "col": 0, "action": "play", "file": "wav/Eminem - My Name Is.wav", "start": 0.0, "duration": 0},
-{"row": 1, "col": 1, "action": "play", "file": "wav/ACDC - Thunderstruck.wav", "start": 5.0, "duration": 0},
-{"row": 1, "col": 2, "action": "play", "file": "wav/David Guetta - Titanium.wav", "start": 43.0, "duration": 0},
-{"row": 1, "col": 3, "action": "play", "file": "wav/foghorn-daniel_simon.wav", "start": 0, "duration": 0, "vol": "-20dB"}
+{"row": 1, "col": 0, "action": "play", "file": "wav/2024/1_superhero.wav", "start": 0, "duration": 16.5},
+{"row": 1, "col": 1, "action": "play", "file": "wav/2024/2_redrum.wav", "start": 45.0, "duration": 18},
+{"row": 1, "col": 2, "action": "play", "file": "wav/2024/3_fein.wav", "start": 0, "duration": 19},
+{"row": 1, "col": 3, "action": "play", "file": "wav/2024/4_insane_in_the_brain.wav", "start": 4, "duration": 15},
+{"row": 1, "col": 5, "action": "play", "file": "wav/2024/6_father.wav", "start": 32, "duration": 15},
+{"row": 1, "col": 6, "action": "play", "file": "wav/2024/7_007_lildub0.wav", "start": 13, "duration": 14.7},
+{"row": 1, "col": 7, "action": "play", "file": "wav/2024/8_without_me.wav", "start": 235.7, "duration": 17},
+{"row": 2, "col": 0, "action": "play", "file": "wav/2024/9_carnival.wav", "start": 13, "duration": 16},
+{"row": 2, "col": 1, "action": "play", "file": "wav/2024/10_boom.wav", "start": 28.3, "duration": 14.9},
+{"row": 2, "col": 3, "action": "play", "file": "wav/2024/12_machinehead.wav", "start": 0.0, "duration": 16},
+{"row": 2, "col": 6, "action": "play", "file": "wav/2024/15_rhcp_cant_stop.wav", "start": 13, "duration": 19},
+{"row": 3, "col": 1, "action": "play", "file": "wav/2024/18_bigpoppa.wav", "start": 0, "duration": 16},
+{"row": 3, "col": 7, "action": "play", "file": "wav/2024/24_power.wav", "start": 8, "duration": 17},
+{"row": 8, "col": 0, "action": "playlist", "files": [
+	{"file": "wav/ACDC - Thunderstruck.wav", "in": 5, "out": 0},
+	{"file": "wav/Flo Rida - Good Feeling.wav", "in": 0, "out": 0},
+	{"file": "wav/Kesha - TiK ToK (Lyrics) [OF04pKp-r9o].wav", "in": 0, "out": 0},
+	{"file": "wav/Capital Cities - Safe And Sound.wav", "in": 0, "out": 0},
+	{"file": "wav/House Of Pain - Jump Around.wav", "in": 0, "out": 0},
+	{"file": "wav/Metallica - 2 X 4.wav", "in": 0, "out": 0},
+	{"file": "wav/Kanye West - Stronger.wav", "in": 0, "out": 0},
+	{"file": "wav/Katy Perry - Roar.wav", "in": 0, "out": 0},
+	{"file": "wav/Panic! At The Disco - High Hopes.wav", "in": 0, "out": 0},
+	{"file": "wav/Eminem - Lose Yourself.wav", "in": 0, "out": 0},
+	{"file": "wav/Queen - We Will Rock You.wav", "in": 0, "out": 0},
+	{"file": "wav/Kesha - Blow (Lyrics).wav", "in": 0, "out": 0}
+]}
 ]

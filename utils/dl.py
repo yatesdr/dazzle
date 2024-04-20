@@ -1,8 +1,8 @@
 import os
 
 links = [
-'https://www.youtube.com/watch?v=OF04pKp-r9o&pp=ygUUa2VzaGEgdGlrIHRvayBseXJpY3M%3D',
-]
+'https://www.youtube.com/watch?v=kWjOE4Gf8sc&pp=ygUWbGlsIGRvdWJsZSBvIDAwNyBjbGVhbg%3D%3D',
+        ]
 
 for link in links:
     os.system(f"yt-dlp -x --audio-format wav {link}")
