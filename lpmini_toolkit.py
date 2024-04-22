@@ -34,7 +34,11 @@ def init_matrix(config):
         if item['action']=="play":
             matrix[item['row']][item['col']]=W
 
-        if item['action']=="playlist":
+        if item['action']=="playlist-start":
+            matrix[item['row']][item['col']]=W
+        if item['action']=="playlist-next":
+            matrix[item['row']][item['col']]=W
+        if item['action']=="playlist-prev":
             matrix[item['row']][item['col']]=W
 
         if item['action']=="stop":

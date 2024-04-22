@@ -13,18 +13,7 @@
 {"row": 2, "col": 6, "action": "play", "file": "wav/2024/15_rhcp_cant_stop.wav", "start": 13, "duration": 19},
 {"row": 3, "col": 1, "action": "play", "file": "wav/2024/18_bigpoppa.wav", "start": 0, "duration": 16},
 {"row": 3, "col": 7, "action": "play", "file": "wav/2024/24_power.wav", "start": 8, "duration": 17},
-{"row": 8, "col": 0, "action": "playlist", "files": [
-	{"file": "wav/ACDC - Thunderstruck.wav", "in": 5, "out": 0},
-	{"file": "wav/Flo Rida - Good Feeling.wav", "in": 0, "out": 0},
-	{"file": "wav/Kesha - TiK ToK (Lyrics) [OF04pKp-r9o].wav", "in": 0, "out": 0},
-	{"file": "wav/Capital Cities - Safe And Sound.wav", "in": 0, "out": 0},
-	{"file": "wav/House Of Pain - Jump Around.wav", "in": 0, "out": 0},
-	{"file": "wav/Metallica - 2 X 4.wav", "in": 0, "out": 0},
-	{"file": "wav/Kanye West - Stronger.wav", "in": 0, "out": 0},
-	{"file": "wav/Katy Perry - Roar.wav", "in": 0, "out": 0},
-	{"file": "wav/Panic! At The Disco - High Hopes.wav", "in": 0, "out": 0},
-	{"file": "wav/Eminem - Lose Yourself.wav", "in": 0, "out": 0},
-	{"file": "wav/Queen - We Will Rock You.wav", "in": 0, "out": 0},
-	{"file": "wav/Kesha - Blow (Lyrics).wav", "in": 0, "out": 0}
-]}
+{"row": 8, "col": 0, "action": "playlist-start"},
+{"row": 8, "col": 1, "action": "playlist-prev"},
+{"row": 8, "col": 2, "action": "playlist-next"}
 ]

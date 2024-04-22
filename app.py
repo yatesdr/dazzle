@@ -2,7 +2,10 @@ from pydub import AudioSegment
 from pydub.playback import _play_with_simpleaudio as play
 import time, os, json
 import lpmini_toolkit as lptk
-import threading
+import threading as t
+from queue import Queue
+from playlistplayer import playlistplayer
+from random import shuffle
 
 # Define a few colors to use with LP Mini Mk3.
 X=0; W=1; R=5; B=51; G=25
@@ -31,12 +34,12 @@ def load_config():
     return config 
             
 
-def lp_handle_event(evt,mtx,config,players,lp):
+def lp_handle_event(evt,mtx,config,players,lp,q):
 
     X=0; W=1; R=5; B=51; G=25
     # Handle button press - actions on release, not on press.
     if evt and evt.type=="release":
-        command = [ item for item in config if item["row"]==evt.button.y and item["col"]==evt.button.x ]
+        command = [ item for item in config if item['action']!="playlist" and item["row"]==evt.button.y and item["col"]==evt.button.x]
         if (len(command)):
             fc = command[0]
             print("Release command: ", fc)
@@ -58,6 +61,9 @@ def lp_handle_event(evt,mtx,config,players,lp):
                 # Stop all players
                 for p in players:
                     p.stop()
+
+                # Stop the playlist player, if running.
+                q.put({"stop": True})
 
                 # Reset the matrix display to base config with nothign playing.
                 mtx = lptk.init_matrix(config)
@@ -95,57 +101,47 @@ def lp_handle_event(evt,mtx,config,players,lp):
 
             if fc['action']=="stop":
                 mute()
+                q.put({'stop': True}) # Stop the playlist player if running.
                 for p in players:
                     p.stop()
                 mtx = lptk.init_matrix(config)
 
-            if fc['action']=="playlist":
+            if fc['action']=="playlist-start":
+               
+                is_playing=(mtx[fc['row']][fc['col']]==G)
+
+                mute()
+                mtx = lptk.init_matrix(config)
+                for p in players:
+                    p.stop()
+                
+                if (is_playing): # Was already playing, stop instead.
+                    mute()
+                    q.put({'stop': True})
+
+                else:
+                    q.put({'play': True})
+                
+                    # Mark playing on board.
+                    mtx[fc['row']][fc['col']]=G
+                    unmute()
+
+            if fc['action']=="playlist-prev":
                 mute()
                 for p in players:
                     p.stop()
-            
-                is_playing = mtx[fc['row']][fc['col']]==B or mtx[fc['row']][fc['col']]==G
+                q.put({'prev': True})
+                unmute()
 
-                if not is_playing:
-                    playlist = AudioSegment.empty()
+            if fc['action']=="playlist-next":
+                mute()
+                for p in players:
+                    p.stop()
+                q.put({'next': True})
+                unmute()
 
-                    # Give instant feedback while loading a large playlist
-                    mtx[fc['row']][fc['col']]=B
-                    lptk.write_colors(lp,mtx)
 
-                    files = fc['files']
-                    isfirst=True
-                    for item in files:
-                        print("item: ",item)
-                        f = item['file']
 
-                        in_ms=0
-                        out_ms=0
-                        if item.get('in'):
-                            in_ms = item['in']*1000
-                        if item.get('out'):
-                            out_ms = item['out']*1000
-                        
-                        toplay = AudioSegment.from_wav(f"{mdir}/{f}")
-
-                        if out_ms>0:
-                            toplay = toplay[in_ms:out_ms]
-                        else:
-                            toplay = toplay[in_ms:]
-
-                        if isfirst:
-                            playlist=toplay
-                            isfirst=False
-                        else:
-                            playlist = playlist.append(toplay,crossfade=3000)
-                    
-                    unmute()
-                    playback = play(playlist)
-                    players.append(playback)
-
-                    mtx[fc['row']][fc['col']]=G
-                else:
-                    mtx = lptk.init_matrix(config)
     return mtx
 
 
@@ -161,10 +157,24 @@ def lp_handler():
     mtx=lptk.init_matrix(config)
     lptk.write_colors(lp,mtx)
 
+    # Load all the files in the warmup directory for the warmup playlist.
+    warmup_songs = os.listdir(f"{mdir}/wav/playlist")
+    playlist = list()
+    for s in warmup_songs:
+        if os.path.isfile(f"{mdir}/wav/playlist/{s}") and s.split(".")[-1].upper()=="WAV":
+            playlist.append(f"{mdir}/wav/playlist/{s}")
+   
+    shuffle(playlist)
+
+    print("Playlist generated from config: ",playlist)
+    q = Queue()
+    playerthread = t.Thread(target=playlistplayer, args=[playlist,q], daemon=True)
+    playerthread.start()
+
     while True:
             lptk.write_colors(lp,mtx)    
             config = load_config()
-            mtx = lp_handle_event(lp.panel.buttons().poll_for_event(),mtx,config,players,lp)  # Wait for a button press/release  # noqa
+            mtx = lp_handle_event(lp.panel.buttons().poll_for_event(),mtx,config,players,lp,q)  # Wait for a button press/release  # noqa
 
             # Prune old plays when stopped to avoid memory filling up.
             is_playing=False
