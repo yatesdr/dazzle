@@ -37,6 +37,20 @@ def load_config():
 def lp_handle_event(evt,mtx,config,players,lp,q):
 
     X=0; W=1; R=5; B=51; G=25
+
+    # For next and prev, give flash when pressed for user feedback.
+    if evt and evt.type=="press":
+        command = [ item for item in config if item['action']!="playlist" and item["row"]==evt.button.y and item["col"]==evt.button.x]
+        if (len(command)):
+            fc = command[0]
+            print("press command: ",fc)
+
+            if fc['action']=='playlist-next' or fc['action']=='playlist-prev':
+                mtx[fc['row']][fc['col']]=G
+                lptk.write_colors(lp,mtx)
+                time.sleep(0.5)
+                mtx[fc['row']][fc['col']]=W
+
     # Handle button press - actions on release, not on press.
     if evt and evt.type=="release":
         command = [ item for item in config if item['action']!="playlist" and item["row"]==evt.button.y and item["col"]==evt.button.x]
