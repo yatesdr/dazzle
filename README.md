@@ -81,6 +81,18 @@ Parameters:
 
 Note:  By default the output will be set to -12dB level.   So if you need the song volumes to match you should specify them in the config file.   If no volume is specified, it will be played at -12dB.
 
+### Playlists
+Dazzle has utility to start / stop and step forward and backward through a playlist, if you use the playlist controls.
+```
+{"row": 8, "col": 0, "action": "playlist-start"},
+{"row": 8, "col": 1, "action": "playlist-prev"},
+{"row": 8, "col": 2, "action": "playlist-next"}
+```
+
+Pressing playlist-start will play whatever wav files you've loaded into the media/playlist directory, and continue playing them until stopped.  There are utilities for trimming silence included in the utils/ folder, edit as needed once you have your songs loaded in wav format.   THis requires pydub to work, which is not available by default in the base installation, so you may need to add it or handle this on a more powerful machine.   The playlist will loop forever, and restart at the beginning.   To skip forward or backwards, you can use the playlist-next or playlist-prev commands and assign them to a button.
+
+The playlists are really intended for warm-up music before games, during intermissions, or the after party.   
+
 
 ## Basic Actions:
 1. Buttons with a song programmed turn white.
