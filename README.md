@@ -56,21 +56,34 @@ If you need to change things, a cleaning script is provided:  ```./clean.sh```. 
 ## How to use
 1.  Upload your Media to the Pi's media folder using scp, rsync, or some other method.  By default install this folder is in ```~/dazzle/media/wav/``` but you can move it before running install.sh if you prefer.  
 
+First, prepare your WAV files from whatever legal sources you have.   Boot the pi and assuming you've used the standard pi user, do the following:
+
+```
+scp -r <your media file directory>/*.wav pi@<ip address of pi>:/home/pi/dazzle/media/wav/
+```
+
+If you're using a playlist for warm-up music, you need to copy your files to the /home/pi/dazzle/media/wav/playlist folder.
+```
+scp -r <your playlist wav folder> pi@<ip address of pi>:/home/pi/dazzle/media/wav/playlist/
+```
+
 Media Notes: WAV files work the best and are what you should use with a Pi4b.   If you only have MP3's there is a utility provided to convert them to WAV files but you will need ffmpeg and some other dependencies to be installed on the Pi4b.  MP3's can also be made to work, but are a bit slow to load on a Pi4, so only use them if you're using this on a laptop or n100 type machine.  For testing with media you already own, some utilities are provided to pull in WAV's from Youtube, but if you're using this in public you should of course contact the license holders and do this officially and legally.
 
 2.  Edit ~/dazzle/config/config.json  - modify to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds, or it will play until stopped or the song ends if you leave it at 0.  If you have a specific volume to set, you can pass this in the config using dB in a key like "volume": "-12dB".
 
 Note:   The config file is reloaded on every keypress, so if you make changes just push the mute button to reload the config.
+Note:  If it's not working, check the logs:  ```sudo docker logs dazzler```
 
 4. If you have a valid config, you'll see the board start working and should be able to play your samples.
 
+Note:  If it's not working, check the logs:  ```sudo docker logs dazzler```.   Usually, it's media not found or a bad config.json.
 
 ## Configuration - config.json
 The board configuration is done by editing config.json.   It is loaded at every keypress, so if you make changes they will be reflected if they're valid.
 
-If config.json is not valid JSON, the container will crash and go into reload loop, so just fix it and wait a bit and it will start working again.
+If config.json is not valid JSON, the container will crash and go into reload loop, so just fix it and press any button and it will start working again.
 
-Parameters:
+Sample Parameters:
 - row:  from 1 to 8 for the white keys on LP Mini.   1 is top row, 8 is bottom row.
 - col:  from 0 to 7 for the white keys.   0 is far left, 7 is far right.
 - action:  "play" - used for playing a file (requires "file" key) or "stop" 
@@ -79,7 +92,7 @@ Parameters:
 - duration: How long you want the file to play for.   Set to 0 if you want it to play the whole file or until stopped.
 - vol (optional): set a custom volume in the format of "-24dB" or "50%".   This is passed to amixer, so any valid arguments to amixer will also work here.
 
-Note:  By default the output will be set to -12dB level.   So if you need the song volumes to match you should specify them in the config file.   If no volume is specified, it will be played at -12dB.
+Note:  By default the output will be set to -3dB level.   So if you need the song volumes to match you should specify them in the config file.   If no volume is specified, it will be played at -3dB.
 
 ### Playlists
 Dazzle has utility to start / stop and step forward and backward through a playlist, if you use the playlist controls.   It essentially plays all the WAV files it finds in media/playlist folder in random order.   Shuffle is done at boot or container re-start, so you get a new mix every for every game.
