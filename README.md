@@ -42,11 +42,11 @@ git clone https://github.com/yatesdr/dazzle
 ```
 5. Install it  
 ```
-cd ~/dazzle/dazzle
+cd ~/dazzle
 ./install.sh
 ```
 
-Install will build the local docker image, map the drive and config, and then start it with a restart policy of always.  By default, the media directory is set to ~/dazzle/dazzle/media/wav, and the config file is ~/dazzle/dazzle/config/config.json.
+Install will build the local docker image, map the drive and config, and then start it with a restart policy of always.  By default, the media directory is set to ~/dazzle/media/wav, and the config file is ~/dazzle/config/config.json.
 The build will take a while.  Once it's stable and all the bugs are out I'll release or pre-package the docker image here to avoid the build process on standard hardware.
 
 If you want to see the running container, try  ```sudo docker ps```
@@ -54,11 +54,11 @@ If you want to see the running container, try  ```sudo docker ps```
 If you need to change things, a cleaning script is provided:  ```./clean.sh```.   This removes the containers but not the images, so if you want to remove those do it manually.
 
 ## How to use
-1.  Upload your Media to the Pi's media folder using scp, rsync, or some other method.  By default install this folder is in ```~/dazzle/dazzle/media/wav/``` but you can move it before running install.sh if you prefer.  
+1.  Upload your Media to the Pi's media folder using scp, rsync, or some other method.  By default install this folder is in ```~/dazzle/media/wav/``` but you can move it before running install.sh if you prefer.  
 
 Media Notes: WAV files work the best and are what you should use with a Pi4b.   If you only have MP3's there is a utility provided to convert them to WAV files but you will need ffmpeg and some other dependencies to be installed on the Pi4b.  MP3's can also be made to work, but are a bit slow to load on a Pi4, so only use them if you're using this on a laptop or n100 type machine.  For testing with media you already own, some utilities are provided to pull in WAV's from Youtube, but if you're using this in public you should of course contact the license holders and do this officially and legally.
 
-2.  Edit ~/dazzle/dazzle/config/config.json  - modify to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds, or it will play until stopped or the song ends if you leave it at 0.  If you have a specific volume to set, you can pass this in the config using dB in a key like "volume": "-12dB".
+2.  Edit ~/dazzle/config/config.json  - modify to reflect the board layout and songs you want.   To start in the middle of a song, set the enter time in seconds.   To play for a specified duration, set the duration time in seconds, or it will play until stopped or the song ends if you leave it at 0.  If you have a specific volume to set, you can pass this in the config using dB in a key like "volume": "-12dB".
 
 Note:   The config file is reloaded on every keypress, so if you make changes just push the mute button to reload the config.
 
