@@ -82,7 +82,7 @@ Parameters:
 Note:  By default the output will be set to -12dB level.   So if you need the song volumes to match you should specify them in the config file.   If no volume is specified, it will be played at -12dB.
 
 ### Playlists
-Dazzle has utility to start / stop and step forward and backward through a playlist, if you use the playlist controls.
+Dazzle has utility to start / stop and step forward and backward through a playlist, if you use the playlist controls.   It essentially plays all the WAV files it finds in media/playlist folder in random order.   Shuffle is done at boot or container re-start, so you get a new mix every for every game.
 ```
 {"row": 8, "col": 0, "action": "playlist-start"},
 {"row": 8, "col": 1, "action": "playlist-prev"},
@@ -93,6 +93,7 @@ Pressing playlist-start will play whatever wav files you've loaded into the medi
 
 The playlists are really intended for warm-up music before games, during intermissions, or the after party.   
 
+Note:   Playlists are shuffled at container start, so you'll get a random play order without repeats for every game.   I like to load lots of songs and the warmup will always have a bit of variation to it based on what the shuffle picks for the first hour or so.
 
 ## Basic Actions:
 1. Buttons with a song programmed turn white.
